@@ -1,0 +1,800 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&amp;display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+.menu {
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+
+  background: #fff;
+
+}
+
+nav .wrapper {
+  position: relative;
+  max-width: 1300px;
+  padding: 0px 30px;
+  height: 70px;
+  line-height: 70px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+}
+
+.wrapper .logo a {
+  color: #f2f2f2;
+  font-size: 30px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.wrapper .nav-links {
+  display: inline-flex;
+}
+
+.nav-links li {
+  list-style: none;
+}
+
+ol,
+ul {
+  margin-top: 0;
+  margin-bottom: 0px;
+}
+
+
+.nav-links li a {
+  color: #000;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 9px 15px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.nav-links li a:hover {
+  /*background: #3A3B3C;*/
+  color: #ff6f00;
+}
+
+.nav-links .mobile-item {
+  display: none;
+}
+
+.nav-links .drop-menu {
+  position: absolute;
+  background: #242526;
+  width: 180px;
+  line-height: 45px;
+  top: 85px;
+  opacity: 1;
+  visibility: hidden;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.nav-links li:hover .drop-menu,
+.nav-links li:hover .mega-box {
+  transition: all 0.3s ease;
+  top: 70px;
+  opacity: 1;
+  visibility: visible;
+}
+
+.drop-menu li a {
+  width: 100%;
+  display: block;
+  padding: 0 0 0 15px;
+  font-weight: 400;
+  border-radius: 0px;
+}
+
+.mega-box {
+  position: absolute;
+  left: 0;
+  width: 110%;
+  padding: 0 30px;
+  top: 85px;
+  opacity: 1;
+  visibility: hidden;
+}
+
+.mega-box .content {
+  background: #EFEFEF;
+  padding: 25px 50px;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.mega-box .content .row {
+  width: calc(25% - 30px);
+  line-height: 28px;
+}
+
+.content .row img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.content .row ul li img {
+  padding-left: 30px;
+  padding-top: 10px;
+}
+
+.content .row ul li a {
+  padding-left: 40px;
+  color: #2A2A2A;
+  font-weight: 400;
+  padding-top: 5px;
+
+}
+
+.content .row header {
+  color: #f2f2f2;
+  font-size: 20px;
+  font-weight: 500;
+  padding-left: 40px;
+  padding-top: 10px;
+  color: #000
+}
+
+.content .row .mega-links {
+  margin-left: -40px;
+  border-left: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.row .mega-links li {
+  padding: 0 20px;
+}
+
+.row .mega-links li a {
+  padding: 50px;
+  padding: 0 20px;
+  color: #d9d9d9;
+  font-size: 15px;
+  display: block;
+}
+
+.row .mega-links li a:hover {
+  color: #f3a235;
+}
+
+.wrapper .btn {
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  display: none;
+}
+
+.wrapper .btn.close-btn {
+  position: absolute;
+  right: 30px;
+  top: 10px;
+}
+
+
+@media screen and (max-width: 970px) {
+  .wrapper .btn {
+    display: block;
+  }
+
+  .wrapper .nav-links {
+    position: fixed;
+    height: 80vh;
+    border-radius: 3px;
+    width: 80%;
+    max-width: 350px;
+    top: 0;
+    left: -100%;
+    background: #2d1e3d;
+    opacity: 1;
+    display: block;
+    padding: 50px 10px;
+    line-height: 50px;
+    overflow-y: auto;
+    box-shadow: 0px 15px 15px rgba(0, 0, 0, 0.18);
+    transition: all 0.3s ease;
+  }
+
+  /* custom scroll bar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #242526;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #3A3B3C;
+  }
+
+  #menu-btn:checked~.nav-links {
+    left: 0%;
+  }
+
+  #menu-btn:checked~.btn.menu-btn {
+    display: none;
+  }
+
+  #close-btn:checked~.btn.menu-btn {
+    display: block;
+  }
+
+  .nav-links li {
+    margin: 15px 10px;
+  }
+
+  .nav-links li a {
+    padding: 0 20px;
+    display: block;
+    font-size: 18px;
+    color: #fff;
+    font-weight: 300;
+  }
+
+  .nav-links .drop-menu {
+    position: static;
+    opacity: 1;
+    top: 65px;
+    visibility: visible;
+    padding-left: 20px;
+    width: 100%;
+    max-height: 0px;
+    overflow: hidden;
+    box-shadow: none;
+    transition: all 0.3s ease;
+  }
+
+  #showDrop:checked~.drop-menu,
+  #showMega:checked~.mega-box {
+    max-height: 100%;
+  }
+
+  .nav-links .desktop-item {
+    display: none;
+  }
+
+  .nav-links .mobile-item {
+    display: block;
+    color: #f2f2f2;
+    font-size: 20px;
+    font-weight: 500;
+    padding-left: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+  }
+
+  .nav-links .mobile-item:hover {
+    background: #3A3B3C;
+  }
+
+  .drop-menu li {
+    margin: 0;
+  }
+
+  .drop-menu li a {
+    border-radius: 5px;
+    font-size: 18px;
+  }
+
+  .mega-box {
+    position: static;
+    top: 65px;
+    opacity: 1;
+    visibility: visible;
+    padding: 0 20px;
+    max-height: 0px;
+    overflow: hidden;
+    /* transition: all 0.3s ease;*/
+  }
+
+  .mega-box .content {
+    box-shadow: none;
+    flex-direction: column;
+    padding: 20px 20px 0 20px;
+  }
+
+  .mega-box .content .row {
+    width: 100%;
+    margin-bottom: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .mega-box .content .row:nth-child(1),
+  .mega-box .content .row:nth-child(2) {
+    border-top: 0px;
+  }
+
+  .content .row .mega-links {
+    border-left: 0px;
+    padding-left: 15px;
+  }
+
+  .row .mega-links li {
+    margin: 0;
+  }
+
+  .content .row header {
+    font-size: 19px;
+  }
+}
+
+nav input {
+  display: none;
+}
+
+.body-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+  padding: 0 30px;
+}
+
+.body-text div {
+  font-size: 45px;
+  font-weight: 600;
+}
+
+.content .row {
+  background-color: white;
+  border-radius: 3px;
+}
+
+
+nav ul li a.active {
+  color: #ff6f00;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ✨ DYNAMIC HOROSCOPE — Interactive Zodiac Signs & Modal
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── Zodiac Sign Box Hover Effects ─────────────────────────── */
+.as_sign_box {
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.as_sign_box:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 15px 40px rgba(255, 111, 0, 0.25),
+    0 5px 15px rgba(0, 0, 0, 0.1);
+  z-index: 5;
+}
+
+.as_sign_box::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 111, 0, 0.08), transparent);
+  transition: left 0.6s ease;
+  pointer-events: none;
+}
+
+.as_sign_box:hover::after {
+  left: 100%;
+}
+
+.as_sign_box .as_sign {
+  transition: transform 0.4s ease;
+}
+
+.as_sign_box:hover .as_sign {
+  transform: scale(1.15) rotate(5deg);
+}
+
+.as_sign_box:hover h5 {
+  color: #ff6f00;
+}
+
+
+/* ─── Pulse Animation on Sign Icons ─────────────────────────── */
+@keyframes horoscopePulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 111, 0, 0.4);
+  }
+
+  70% {
+    box-shadow: 0 0 0 12px rgba(255, 111, 0, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 111, 0, 0);
+  }
+}
+
+.as_sign_box:hover .as_sign {
+  animation: horoscopePulse 1.5s infinite;
+  border-radius: 50%;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MODAL OVERLAY
+   ═══════════════════════════════════════════════════════════════ */
+.horoscope-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 10, 30, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s ease;
+  padding: 20px;
+}
+
+.horoscope-modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MODAL CONTAINER
+   ═══════════════════════════════════════════════════════════════ */
+.horoscope-modal {
+  background: linear-gradient(145deg, #1a1035 0%, #2d1854 40%, #1a1035 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  max-width: 620px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 0;
+  position: relative;
+  transform: translateY(40px) scale(0.95);
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 25px 80px rgba(100, 50, 200, 0.3),
+    0 10px 30px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.horoscope-modal-overlay.active .horoscope-modal {
+  transform: translateY(0) scale(1);
+}
+
+/* Custom Scrollbar for Modal */
+.horoscope-modal::-webkit-scrollbar {
+  width: 6px;
+}
+
+.horoscope-modal::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.horoscope-modal::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ff6f00, #ff9f40);
+  border-radius: 3px;
+}
+
+/* ─── Close Button ──────────────────────────────────────────── */
+.horoscope-modal-close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 24px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 5;
+  line-height: 1;
+}
+
+.horoscope-modal-close:hover {
+  background: rgba(255, 80, 80, 0.3);
+  border-color: rgba(255, 80, 80, 0.5);
+  transform: rotate(90deg) scale(1.1);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MODAL HEADER
+   ═══════════════════════════════════════════════════════════════ */
+.horoscope-modal-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 30px 30px 15px;
+  background: linear-gradient(180deg, rgba(255, 111, 0, 0.15) 0%, transparent 100%);
+}
+
+.horoscope-modal-symbol {
+  font-size: 56px;
+  width: 85px;
+  height: 85px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(255, 111, 0, 0.2), rgba(255, 159, 64, 0.1));
+  border-radius: 50%;
+  border: 2px solid rgba(255, 111, 0, 0.3);
+  flex-shrink: 0;
+  animation: symbolFloat 3s ease-in-out infinite;
+}
+
+@keyframes symbolFloat {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.horoscope-modal-title-area h2 {
+  color: #fff;
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+  background: linear-gradient(135deg, #fff, #ff9f40);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.horoscope-modal-date {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
+  margin: 3px 0 8px;
+}
+
+.horoscope-modal-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.trait-tag {
+  background: rgba(255, 111, 0, 0.15);
+  color: #ff9f40;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+  border: 1px solid rgba(255, 111, 0, 0.2);
+  letter-spacing: 0.3px;
+}
+
+/* ─── Meta Info Bar ─────────────────────────────────────────── */
+.horoscope-modal-meta {
+  display: flex;
+  gap: 15px;
+  padding: 10px 30px;
+  flex-wrap: wrap;
+}
+
+.horoscope-modal-meta span {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 5px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ─── Today's Date ──────────────────────────────────────────── */
+.horoscope-today-date {
+  padding: 0 30px 15px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 13px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MODAL BODY — Prediction Sections
+   ═══════════════════════════════════════════════════════════════ */
+.horoscope-modal-body {
+  padding: 20px 30px;
+}
+
+.horoscope-section {
+  margin-bottom: 20px;
+  padding: 18px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.3s ease;
+}
+
+.horoscope-section:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 111, 0, 0.15);
+  transform: translateX(4px);
+}
+
+.horoscope-section h4 {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.horoscope-section p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 0 0 8px;
+}
+
+.horoscope-rating {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 13px;
+  text-align: right;
+}
+
+.horoscope-rating span {
+  letter-spacing: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LUCKY GRID
+   ═══════════════════════════════════════════════════════════════ */
+.horoscope-lucky-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 0 30px 20px;
+}
+
+.lucky-item {
+  background: linear-gradient(135deg, rgba(255, 111, 0, 0.1), rgba(255, 159, 64, 0.05));
+  border: 1px solid rgba(255, 111, 0, 0.15);
+  border-radius: 12px;
+  padding: 14px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.lucky-item:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 111, 0, 0.35);
+  box-shadow: 0 8px 20px rgba(255, 111, 0, 0.1);
+}
+
+.lucky-label {
+  display: block;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 5px;
+}
+
+.lucky-value {
+  display: block;
+  color: #ff9f40;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* ─── Modal Footer ──────────────────────────────────────────── */
+.horoscope-modal-footer {
+  text-align: center;
+  padding: 15px 30px 25px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.horoscope-modal-footer p {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 12px;
+  margin: 0;
+  font-style: italic;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE — Mobile Styles
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .horoscope-modal {
+    max-height: 90vh;
+    border-radius: 18px;
+    margin: 10px;
+  }
+
+  .horoscope-modal-header {
+    padding: 20px 20px 12px;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .horoscope-modal-symbol {
+    font-size: 42px;
+    width: 70px;
+    height: 70px;
+  }
+
+  .horoscope-modal-title-area h2 {
+    font-size: 22px;
+  }
+
+  .horoscope-modal-tags {
+    justify-content: center;
+  }
+
+  .horoscope-modal-meta {
+    padding: 10px 20px;
+    justify-content: center;
+  }
+
+  .horoscope-today-date {
+    padding: 0 20px 12px;
+    text-align: center;
+  }
+
+  .horoscope-modal-body {
+    padding: 15px 20px;
+  }
+
+  .horoscope-section {
+    padding: 14px;
+  }
+
+  .horoscope-lucky-grid {
+    padding: 0 20px 15px;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .lucky-item {
+    padding: 10px;
+  }
+
+  .lucky-value {
+    font-size: 14px;
+  }
+
+  .horoscope-modal-close {
+    top: 10px;
+    right: 12px;
+    width: 34px;
+    height: 34px;
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 400px) {
+  .horoscope-lucky-grid {
+    grid-template-columns: 1fr;
+  }
+}

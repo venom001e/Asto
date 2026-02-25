@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Daily Horoscope - Astro Cloud</title>
+    <meta name="description" content="Get your personalized daily horoscope reading based on Vedic Astrology.">
+    <meta name="keywords" content="daily horoscope, zodiac sign, astrology predictions">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link href="assets/css/font.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/mystyle.css" />
+    <link rel="stylesheet" href="../cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="../cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
+
+    <style>
+        /* ═══════════════════════════════════════════════════════════
+           HOROSCOPE DETAIL PAGE — Matching Main Website Design
+           Fonts: Philosopher (headings), Lato (body)
+           Colors: --secondary-color: #f4a636 (orange accent)
+           ═══════════════════════════════════════════════════════════ */
+
+        /* ─── Hero Banner (same style as main site) ─────────────── */
+        .hd_banner {
+            background-image: url('assets/images/bg1.jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding: 140px 0 120px;
+            position: relative;
+            color: #ffffff;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .hd_banner::after {
+            position: absolute;
+            content: '';
+            background: url('assets/images/shape.svg') no-repeat;
+            width: 100%;
+            height: 273px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            transform: scale(-1);
+            z-index: 1;
+            background-size: cover;
+        }
+
+        .hd_banner_content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hd_sign_icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .hd_sign_icon img {
+            width: 65px;
+            height: 65px;
+            filter: brightness(0) invert(1);
+        }
+
+        .hd_sign_name {
+            font-size: 48px;
+            font-family: 'Philosopher', sans-serif;
+            font-weight: 700;
+            margin: 0 0 5px;
+            color: #fff;
+        }
+
+        .hd_sign_date {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.7);
+            margin: 0 0 18px;
+            font-family: 'Lato', sans-serif;
+        }
+
+        .hd_traits {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .hd_trait_badge {
+            background: rgba(244, 166, 54, 0.25);
+            color: #fff;
+            padding: 5px 18px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid rgba(244, 166, 54, 0.4);
+            font-family: 'Lato', sans-serif;
+        }
+
+        .hd_meta_row {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .hd_meta_item {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 6px 18px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            font-family: 'Lato', sans-serif;
+        }
+
+        /* ─── Decorative Divider (matches website) ──────────────── */
+        .hd_divider {
+            text-align: center;
+            padding: 15px 0;
+        }
+
+        .hd_divider img {
+            max-width: 180px;
+        }
+
+        /* ─── Main Content ──────────────────────────────────────── */
+        .hd_content_wrapper {
+            background-image: url('assets/images/bg2.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            padding: 40px 0 70px;
+        }
+
+        .breadcrumb {
+            --bs-breadcrumb-divider: "/" !important;
+        }
+
+        .breadcrumb-item+.breadcrumb-item::before {
+            content: "/" !important;
+            color: #ccc !important;
+            padding: 0 10px !important;
+        }
+
+        .hd_date_heading {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .hd_date_heading h3 {
+            font-family: 'Philosopher', sans-serif;
+            font-size: 26px;
+            color: #111;
+            font-weight: 600;
+            margin: 0 0 5px;
+        }
+
+        .hd_date_heading p {
+            color: #797979;
+            font-size: 15px;
+            font-family: 'Lato', sans-serif;
+            margin: 0;
+        }
+
+        /* ─── Day Tabs ──────────────────────────────────────────── */
+        .hd_day_tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .hd_day_tab {
+            background: #ffffff;
+            border: 1px solid #eee;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            color: #666;
+            font-family: 'Lato', sans-serif;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+        }
+
+        .hd_day_tab:hover {
+            border-color: var(--secondary-color);
+            color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .hd_day_tab.active {
+            background: linear-gradient(135deg, var(--secondary-color), #f37335);
+            border-color: transparent;
+            color: #fff;
+            box-shadow: 0 10px 25px rgba(244, 166, 54, 0.35);
+        }
+
+        /* ─── Prediction Cards (Premium Upgrade) ─────────────────── */
+        .hd_prediction_card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 35px;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.02);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .hd_prediction_card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.08);
+        }
+
+        .hd_prediction_card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 100%;
+            background: var(--secondary-color);
+        }
+
+        .hd_card_love::after {
+            background: #ff4757;
+        }
+
+        .hd_card_career::after {
+            background: #2e86de;
+        }
+
+        .hd_card_health::after {
+            background: #2ecc71;
+        }
+
+        .hd_card_header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #e8e8e8;
+        }
+
+        .hd_card_title {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .hd_card_title .icon {
+            font-size: 32px;
+            width: 55px;
+            height: 55px;
+            background: #fff8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.02);
+        }
+
+        .hd_card_love .icon {
+            background: #fff0f1;
+        }
+
+        .hd_card_career .icon {
+            background: #f0f7ff;
+        }
+
+        .hd_card_health .icon {
+            background: #f0fff4;
+        }
+
+        .hd_card_title h4 {
+            font-size: 24px;
+            margin: 0;
+            color: #111;
+            font-family: 'Philosopher', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        .hd_card_rating {
+            font-size: 14px;
+            color: #797979;
+            font-family: 'Lato', sans-serif;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #f9fbfd;
+            padding: 8px 18px;
+            border-radius: 40px;
+            border: 1px solid #f0f0f0;
+        }
+
+        .hd_card_rating .stars {
+            color: #ffb800;
+            font-size: 16px;
+            letter-spacing: 2px;
+        }
+
+        .hd_prediction_text {
+            font-size: 17px;
+            color: #555;
+            line-height: 1.9;
+            margin: 0;
+            font-family: 'Lato', sans-serif;
+            font-weight: 400;
+        }
+
+        /* ─── Lucky Section ─────────────────────────────────────── */
+        .hd_lucky_section {
+            padding: 20px 0 60px;
+        }
+
+        .hd_section_heading h3 {
+            font-size: 32px;
+            color: #111;
+            font-family: 'Philosopher', sans-serif;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 40px;
+        }
+
+        .hd_lucky_grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .hd_lucky_card {
+            background: #ffffff;
+            padding: 35px 20px;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(0, 0, 0, 0.01);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .hd_lucky_card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(244, 166, 54, 0.18);
+            border-color: rgba(244, 166, 54, 0.2);
+        }
+
+        .hd_lucky_card .emoji {
+            font-size: 38px;
+            display: block;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.1));
+        }
+
+        .hd_lucky_card .label {
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #aaa;
+            margin-bottom: 10px;
+            font-weight: 700;
+            font-family: 'Lato', sans-serif;
+        }
+
+        .hd_lucky_card .value {
+            display: block;
+            font-size: 20px;
+            color: #111;
+            font-weight: 700;
+            font-family: 'Philosopher', sans-serif;
+        }
+
+        /* ─── Explore Other Signs ────────────────────────────────── */
+        .hd_other_signs {
+            padding: 60px 0 40px;
+            border-top: 1px solid #eee;
+        }
+
+        .hd_signs_grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 18px;
+        }
+
+        .hd_sign_link {
+            background: #fff;
+            padding: 25px 10px;
+            border-radius: 22px;
+            text-align: center;
+            text-decoration: none !important;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.02);
+            border: 1px solid #f6f6f6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .hd_sign_link .sign_symbol {
+            font-size: 36px;
+            transition: transform 0.3s ease;
+        }
+
+        .hd_sign_link .sign_label {
+            font-size: 15px;
+            font-weight: 700;
+            color: #333;
+            font-family: 'Philosopher', sans-serif;
+        }
+
+        .hd_sign_link:hover {
+            background: #fffcf5;
+            border-color: var(--secondary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(244, 166, 54, 0.15);
+        }
+
+        .hd_sign_link:hover .sign_symbol {
+            transform: scale(1.2);
+        }
+
+        .hd_sign_link:hover .sign_label {
+            color: var(--secondary-color);
+        }
+
+        .hd_sign_link.active {
+            background: linear-gradient(135deg, var(--secondary-color), #f37335);
+            border-color: transparent;
+            box-shadow: 0 10px 25px rgba(244, 166, 54, 0.3);
+        }
+
+        .hd_sign_link.active .sign_label,
+        .hd_sign_link.active .sign_symbol {
+            color: #fff;
+        }
+
+        /* ─── Shared Styles ─────────────────────────────────────── */
+        .hd_back_btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            padding: 16px 45px;
+            background: linear-gradient(135deg, var(--secondary-color), #f37335);
+            color: #fff;
+            border-radius: 60px;
+            font-weight: 700;
+            text-decoration: none !important;
+            font-family: 'Philosopher', sans-serif;
+            font-size: 18px;
+            transition: all 0.4s ease;
+            box-shadow: 0 12px 30px rgba(243, 115, 53, 0.3);
+        }
+
+        .hd_back_btn:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 18px 40px rgba(243, 115, 53, 0.45);
+            color: #fff;
+        }
+
+        .hd_disclaimer {
+            text-align: center;
+            margin: 50px auto 20px;
+            color: #bbb;
+            font-size: 14px;
+            font-family: 'Lato', sans-serif;
+            max-width: 600px;
+            line-height: 1.7;
+        }
+
+        /* ─── Ad Placements ─────────────────────────────────────── */
+        .ad_slot_horizontal {
+            width: 100%;
+            background: #fdfdfd;
+            border: 1px dashed #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 12px;
+            min-height: 110px;
+            position: relative;
+            background-image: linear-gradient(45deg, #fafafa 25%, transparent 25%, transparent 50%, #fafafa 50%, #fafafa 75%, transparent 75%, transparent);
+            background-size: 20px 20px;
+        }
+
+        .ad_slot_sidebar {
+            width: 100%;
+            background: #fdfdfd;
+            border: 1px dashed #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            border-radius: 15px;
+            min-height: 250px;
+            padding: 20px;
+            position: relative;
+            background-image: linear-gradient(45deg, #fafafa 25%, transparent 25%, transparent 50%, #fafafa 50%, #fafafa 75%, transparent 75%, transparent);
+            background-size: 20px 20px;
+        }
+
+        .ad_slot_horizontal::after,
+        .ad_slot_sidebar::after {
+            content: 'AD';
+            position: absolute;
+            top: 5px;
+            right: 8px;
+            font-size: 8px;
+            color: #ccc;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .ad_placeholder {
+            font-size: 11px;
+            color: #bbb;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 800;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 8px 15px;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .hd_sidebar {
+            position: sticky;
+            top: 100px;
+            padding-bottom: 40px;
+        }
+
+        .hd_sidebar_widget {
+            background: #fff;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            margin-bottom: 30px;
+            border: 1px solid #f6f6f6;
+        }
+
+        .widget_title {
+            font-family: 'Philosopher', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #111;
+            border-left: 4px solid var(--secondary-color);
+            padding-left: 15px;
+        }
+
+        @media (max-width: 991px) {
+            .hd_sidebar {
+                margin-top: 50px;
+                position: static;
+            }
+        }
+
+        /* ─── Footer Section (matching main site) ───────────────── */
+        .hd_footer_section {
+            background-image: url('assets/images/bg1.jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+            color: #fff;
+        }
+
+        .hd_footer_section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        /* ─── Responsive ────────────────────────────────────────── */
+        @media (max-width: 991px) {
+            .hd_sign_name {
+                font-size: 36px;
+            }
+
+            .hd_sign_icon {
+                width: 100px;
+                height: 100px;
+            }
+
+            .hd_sign_icon img {
+                width: 55px;
+                height: 55px;
+            }
+
+            .hd_lucky_grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hd_signs_grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .hd_banner {
+                padding: 120px 0 100px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hd_sign_name {
+                font-size: 28px;
+            }
+
+            .hd_sign_icon {
+                width: 85px;
+                height: 85px;
+            }
+
+            .hd_sign_icon img {
+                width: 45px;
+                height: 45px;
+            }
+
+            .hd_sign_date {
+                font-size: 15px;
+            }
+
+            .hd_meta_row {
+                gap: 8px;
+            }
+
+            .hd_meta_item {
+                font-size: 12px;
+                padding: 5px 12px;
+            }
+
+            .hd_prediction_card {
+                padding: 20px;
+            }
+
+            .hd_card_title h4 {
+                font-size: 18px;
+            }
+
+            .hd_prediction_text {
+                font-size: 14px;
+                line-height: 24px;
+            }
+
+            .hd_lucky_grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .hd_signs_grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+            }
+
+            .hd_sign_link {
+                padding: 12px 6px;
+            }
+
+            .hd_sign_link .sign_symbol {
+                font-size: 20px;
+            }
+
+            .hd_sign_link .sign_label {
+                font-size: 11px;
+            }
+
+            .hd_banner {
+                padding: 110px 0 80px;
+            }
+
+            .hd_card_header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="as_main_wrapper">
+        <!-- Navigation (same as main site) -->
+        <nav class="menu">
+            <div class="wrapper">
+                <div class="logo"><a href="index.html">
+                        <img src="uploads/images/logo/1669716928.png" alt="">
+                    </a></div>
+                <input type="radio" name="slider" id="menu-btn">
+                <input type="radio" name="slider" id="close-btn">
+                <ul class="nav-links">
+                    <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about-us.html">About Us</a></li>
+                    <li><a href="services.html">Service</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="blogs.html">Blogs</a></li>
+                    <li><a href="faqs.html">Faq</a></li>
+                    <li><a href="contact-us.html">Contact us</a></li>
+                    <li>
+                        <a href="tel:+918447525204" class="as_btn ms-md-4">🤙 +91 8447 525 204</a>
+                    </li>
+                </ul>
+                <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars" style="color:black;"></i></label>
+            </div>
+        </nav>
+
+        <!-- Hero Banner -->
+        <section class="hd_banner">
+            <div class="hd_banner_content">
+                <div class="container">
+                    <div class="hd_sign_icon" id="heroSignIcon">
+                        <img src="assets/images/svg/horoscope/h1.svg" alt="" id="heroIconImg">
+                    </div>
+                    <h1 class="hd_sign_name" id="heroSignName">Loading...</h1>
+                    <p class="hd_sign_date" id="heroDateRange"></p>
+                    <div class="hd_traits" id="heroTraits"></div>
+                    <div class="hd_meta_row" id="heroMeta"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Breadcrumb & Content -->
+        <section class="hd_content_wrapper">
+            <div class="container">
+                <!-- Top Horizontal Ad -->
+                <div class="ad_slot_horizontal" style="margin-top: 0; margin-bottom: 40px;">
+                    <div class="ad_placeholder">Advertisement - Horizontal Banner (728x90)</div>
+                </div>
+
+                <!-- Breadcrumbs -->
+                <nav aria-label="breadcrumb" style="margin-bottom: 25px;">
+                    <ol class="breadcrumb"
+                        style="background: transparent; padding: 0; margin: 0; font-family: 'Lato', sans-serif; font-size: 14px;">
+                        <li class="breadcrumb-item"><a href="index.html" style="color: var(--secondary-color);">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page" style="color: #797979;"
+                            id="breadSignName">Horoscope</li>
+                    </ol>
+                </nav>
+
+                <div class="row">
+                    <!-- Main Content Side -->
+                    <div class="col-lg-8">
+                        <!-- Today's Date & Tabs -->
+                        <div class="hd_date_heading" style="text-align: left; margin-bottom: 40px;">
+                            <div class="hd_day_tabs" style="justify-content: flex-start; gap: 10px;">
+                                <button class="hd_day_tab" data-offset="-1">Yesterday</button>
+                                <button class="hd_day_tab active" data-offset="0">Today</button>
+                                <button class="hd_day_tab" data-offset="1">Tomorrow</button>
+                            </div>
+                            <h3 id="todayDate" style="font-size: 36px; margin-top: 15px;"></h3>
+                            <p id="subheadingText">Your daily horoscope based on Vedic Astrology &amp; celestial
+                                movements</p>
+                        </div>
+
+                        <!-- Prediction Cards -->
+                        <div id="predictionsContainer">
+                            <div style="text-align:center; padding:60px 0;">
+                                <p style="color:#797979;">Loading your horoscope...</p>
+                            </div>
+                        </div>
+
+                        <!-- Mid-Content Ad -->
+                        <div class="ad_slot_horizontal">
+                            <div class="ad_placeholder">Advertisement - In-Content Ad</div>
+                        </div>
+
+                        <!-- Social Share -->
+                        <div class="hd_social_card" style="margin-top: 40px;">
+                            <p>Share your reading with friends:</p>
+                            <div class="d-flex justify-content-center gap-4">
+                                <a href="#" class="hd_share_btn fb"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" class="hd_share_btn wa"><i class="fab fa-whatsapp"></i></a>
+                                <a href="#" class="hd_share_btn tw"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="hd_share_btn ml"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Side for Ads -->
+                    <div class="col-lg-4">
+                        <div class="hd_sidebar">
+                            <!-- Sidebar Ad Slot 1 -->
+                            <div class="ad_slot_sidebar" style="min-height: 600px;">
+                                <div class="ad_placeholder">Sidebar Ad (Vertical)</div>
+                            </div>
+
+                            <!-- Sidebar Widget -->
+                            <div class="hd_sidebar_widget">
+                                <h4 class="widget_title">Why Check Today?</h4>
+                                <p style="font-size: 14px; color: #666; line-height: 1.6;">Celestial alignments change
+                                    hourly, influencing your mood, luck, and decisions. Stay informed to align your
+                                    energy with the stars.</p>
+                            </div>
+
+                            <!-- Sidebar Ad Slot 2 -->
+                            <div class="ad_slot_sidebar">
+                                <div class="ad_placeholder">Sidebar Ad (Square)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Lucky Section -->
+                <div class="hd_lucky_section" id="luckySection" style="display:none; margin-top: 30px;">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="hd_section_heading">
+                                <h3>Your Lucky Items for Today</h3>
+                            </div>
+                            <div class="hd_lucky_grid" id="luckyGrid"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Another Horizontal Ad -->
+                <div class="ad_slot_horizontal" style="margin: 50px 0;">
+                    <div class="ad_placeholder">Advertisement - Footer Banner</div>
+                </div>
+
+                <!-- Other Signs -->
+                <div class="hd_other_signs" style="border-top: none; padding-top: 0;">
+                    <div class="hd_section_heading">
+                        <h3>Explore Other Zodiac Signs</h3>
+                    </div>
+                    <div class="hd_signs_grid" id="otherSignsGrid"></div>
+                </div>
+
+                <!-- Back Button -->
+                <div class="text-center" style="margin-top: 50px;">
+                    <a href="index.html" class="hd_back_btn">
+                        <i class="fas fa-arrow-left"></i> Back to Home
+                    </a>
+                </div>
+                <p class="hd_disclaimer">Predictions are generated daily based on celestial movements and change every
+                    day.</p>
+            </div>
+        </section>
+
+        <!-- Footer (same as main site) -->
+        <section class="as_footer_wrapper as_padderTop80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="as_footer_inner as_padderTop10 as_padderBottom40">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-6 col-sm-12">
+                                    <div class="as_footer_widget">
+                                        <div class="as_footer_logo">
+                                            <a href="index.html">
+                                                <img src="uploads/images/logo/1669716928.png" alt=""></a>
+                                        </div>
+                                        <ul class="as_contact_list pt-3">
+                                            <li>
+                                                <img src="assets/images/svg/map.svg" alt="">
+                                                <p>Dwarka sec 12, New Delhi 110078</p>
+                                            </li>
+                                            <li>
+                                                <img src="assets/images/svg/phone.svg" alt="">
+                                                <p><a href="tel:+918447525204">+91 8447 525 204</a></p>
+                                            </li>
+                                            <li>
+                                                <img src="assets/images/svg/mail.svg" alt="">
+                                                <p><a href="mailto:info@yoursite.com">info@yoursite.com</a></p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6 col-sm-12">
+                                    <div class="as_footer_widget">
+                                        <h3 class="as_footer_heading">Quick Links</h3>
+                                        <ul>
+                                            <li><a href="index.html">Home</a></li>
+                                            <li><a href="about-us.html">About Us</a></li>
+                                            <li><a href="services.html">Our Services</a></li>
+                                            <li><a href="products.html">Our Products</a></li>
+                                            <li><a href="blogs.html">Blogs</a></li>
+                                            <li><a href="contact-us.html">Contact Us</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6 col-sm-12">
+                                    <div class="as_footer_widget">
+                                        <h3 class="as_footer_heading">Featured Services</h3>
+                                        <ul>
+                                            <li><a href="services/this-is-a-demo-service.html">This is a demo
+                                                    service</a></li>
+                                            <li><a href="services/course-for-reading-palms-.html">Course for reading
+                                                    palms</a></li>
+                                            <li><a href="services/kundali-match-.html">Kundali Match</a></li>
+                                            <li><a href="services/kp-janma-kundali.html">KP Janma Kundali</a></li>
+                                            <li><a href="services/online-panchangam-.html">Online Panchangam</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6 col-sm-12">
+                                    <div class="as_footer_widget">
+                                        <h3 class="as_footer_heading">Our Newsletter</h3>
+                                        <p>Feel free subscribe to our news letters.</p>
+                                        <form method="post" action="#">
+                                            <input type="email" name="email" class="form-control rounded-1"
+                                                placeholder="Email..." required="">
+                                            <button type="submit" class="btn btn-block btn-warning mt-3">Submit</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="as_copyright_wrapper text-center">
+                            <p>Copyright &copy; 2026 Made with ❤️ By Ganesh Yadav</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/bootstrap.js"></script>
+    <script src="assets/js/horoscope.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            // Sign icon mapping
+            var signIcons = {
+                aries: 'h1.svg', taurus: 'h2.svg', gemini: 'h3.svg',
+                cancer: 'h4.svg', leo: 'h5.svg', virgo: 'h6.svg',
+                libra: 'h7.svg', scorpio: 'h8.svg', sagittarius: 'h9.svg',
+                capricorn: 'h10.svg', aquarius: 'h11.svg', pisces: 'h12.svg'
+            };
+
+            // Get sign from URL
+            var urlParams = new URLSearchParams(window.location.search);
+            var signKey = urlParams.get('sign') || 'aries';
+
+            // Generate horoscope function
+            function loadHoroscope(dayOffset) {
+                dayOffset = parseInt(dayOffset) || 0;
+
+                // Update active tab
+                $('.hd_day_tab').removeClass('active');
+                $('.hd_day_tab[data-offset="' + dayOffset + '"]').addClass('active');
+
+                // Generate horoscope
+                var prediction = HoroscopeEngine.getHoroscope(signKey, dayOffset);
+                if (!prediction) {
+                    window.location.href = 'index.html';
+                    return;
+                }
+
+                // Page title & Hero (only once or on update)
+                document.title = prediction.sign + ' Daily Horoscope - Astro Cloud';
+                document.getElementById('heroSignName').textContent = prediction.sign;
+                document.getElementById('heroDateRange').textContent = prediction.date;
+                document.getElementById('breadSignName').textContent = prediction.sign + ' Horoscope';
+
+                // Today date
+                var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                var targetDate = new Date();
+                targetDate.setDate(targetDate.getDate() + dayOffset);
+                document.getElementById('todayDate').textContent = targetDate.toLocaleDateString('en-IN', options);
+
+                // Update subheading text
+                var subheading = "Your daily horoscope based on Vedic Astrology & celestial movements";
+                if (dayOffset === -1) subheading = "A look back at yesterday's celestial influence and guidance";
+                if (dayOffset === 1) subheading = "Tomorrow's cosmic forecast to help you prepare for the day ahead";
+                document.getElementById('subheadingText').textContent = subheading;
+
+                // Star rating helper
+                function getStars(rating) {
+                    var html = '';
+                    for (var i = 0; i < 5; i++) {
+                        html += i < rating ? '⭐' : '☆';
+                    }
+                    return html;
+                }
+
+                // Build prediction cards
+                var cardsHTML = '';
+
+                cardsHTML += '<div class="hd_prediction_card">' +
+                    '<div class="hd_card_header">' +
+                    '<div class="hd_card_title"><span class="icon">🌟</span><h4>Today\'s Overview</h4></div>' +
+                    '<div class="hd_card_rating">Overall <span class="stars">' + getStars(prediction.overallRating) + '</span></div>' +
+                    '</div>' +
+                    '<p class="hd_prediction_text">' + prediction.general + '</p>' +
+                    '</div>';
+
+                cardsHTML += '<div class="hd_prediction_card hd_card_love">' +
+                    '<div class="hd_card_header">' +
+                    '<div class="hd_card_title"><span class="icon">❤️</span><h4>Love & Relationships</h4></div>' +
+                    '<div class="hd_card_rating">Love <span class="stars">' + getStars(prediction.loveRating) + '</span></div>' +
+                    '</div>' +
+                    '<p class="hd_prediction_text">' + prediction.love + '</p>' +
+                    '</div>';
+
+                cardsHTML += '<div class="hd_prediction_card hd_card_career">' +
+                    '<div class="hd_card_header">' +
+                    '<div class="hd_card_title"><span class="icon">💼</span><h4>Career & Finance</h4></div>' +
+                    '<div class="hd_card_rating">Career <span class="stars">' + getStars(prediction.careerRating) + '</span></div>' +
+                    '</div>' +
+                    '<p class="hd_prediction_text">' + prediction.career + '</p>' +
+                    '</div>';
+
+                cardsHTML += '<div class="hd_prediction_card hd_card_health">' +
+                    '<div class="hd_card_header">' +
+                    '<div class="hd_card_title"><span class="icon">🏥</span><h4>Health & Wellness</h4></div>' +
+                    '<div class="hd_card_rating">Health <span class="stars">' + getStars(prediction.healthRating) + '</span></div>' +
+                    '</div>' +
+                    '<p class="hd_prediction_text">' + prediction.health + '</p>' +
+                    '</div>';
+
+                document.getElementById('predictionsContainer').innerHTML = cardsHTML;
+
+                // Lucky grid
+                document.getElementById('luckySection').style.display = 'block';
+                document.getElementById('luckyGrid').innerHTML =
+                    '<div class="hd_lucky_card"><span class="emoji">🔢</span><span class="label">Lucky Numbers</span><span class="value">' + prediction.luckyNumber + ', ' + prediction.luckyNumber2 + '</span></div>' +
+                    '<div class="hd_lucky_card"><span class="emoji">🎨</span><span class="label">Lucky Color</span><span class="value">' + prediction.luckyColor + '</span></div>' +
+                    '<div class="hd_lucky_card"><span class="emoji">💎</span><span class="label">Lucky Gem</span><span class="value">' + prediction.luckyGem + '</span></div>' +
+                    '<div class="hd_lucky_card"><span class="emoji">💕</span><span class="label">Compatibility</span><span class="value">' + prediction.compatibility + '</span></div>';
+
+                // Hero icon & details (only if traits not set)
+                if ($('#heroTraits').is(':empty')) {
+                    var iconFile = signIcons[signKey] || 'h1.svg';
+                    document.getElementById('heroIconImg').src = 'assets/images/svg/horoscope/' + iconFile;
+
+                    var traitsHTML = '';
+                    prediction.traits.forEach(function (t) {
+                        traitsHTML += '<span class="hd_trait_badge">' + t + '</span>';
+                    });
+                    document.getElementById('heroTraits').innerHTML = traitsHTML;
+
+                    document.getElementById('heroMeta').innerHTML =
+                        '<span class="hd_meta_item">Element: ' + prediction.element + '</span>' +
+                        '<span class="hd_meta_item">Ruler: ' + prediction.ruler + '</span>' +
+                        '<span class="hd_meta_item">Mood: ' + prediction.mood + '</span>';
+                }
+
+                // Sidebar population
+                var sidebarStatsHTML =
+                    '<div style="display: flex; flex-direction: column; gap: 12px;">' +
+                    '<div style="display: flex; justify-content: space-between; align-items: center; background: #fff8f0; padding: 12px 15px; border-radius: 12px; border: 1px solid #fee8d0;">' +
+                    '<span style="font-size: 13px; color: #666; font-weight: 600;">Overall Rating</span>' +
+                    '<span style="color: #ffb800; font-size: 14px;">' + getStars(prediction.overallRating) + '</span>' +
+                    '</div>' +
+                    '<div style="display: flex; justify-content: space-between; align-items: center; background: #f0f7ff; padding: 12px 15px; border-radius: 12px; border: 1px solid #d0e7fe;">' +
+                    '<span style="font-size: 13px; color: #666; font-weight: 600;">Lucky Number</span>' +
+                    '<span style="color: #2e86de; font-weight: 700;">' + prediction.luckyNumber + '</span>' +
+                    '</div>' +
+                    '<div style="display: flex; justify-content: space-between; align-items: center; background: #fff0f1; padding: 12px 15px; border-radius: 12px; border: 1px solid #fed0d3;">' +
+                    '<span style="font-size: 13px; color: #666; font-weight: 600;">Compatibility</span>' +
+                    '<span style="color: #ff4757; font-weight: 700;">' + prediction.compatibility + '</span>' +
+                    '</div>' +
+                    '</div>';
+                document.getElementById('sidebarLuckySummary').innerHTML = sidebarStatsHTML;
+            }
+
+            // Initial load (Today)
+            loadHoroscope(0);
+
+            // Tab click events
+            $('.hd_day_tab').on('click', function () {
+                var offset = $(this).data('offset');
+                loadHoroscope(offset);
+            });
+
+            // Other signs grid (Static)
+            var allSigns = [
+                { key: 'aries', name: 'Aries', symbol: '♈' },
+                { key: 'taurus', name: 'Taurus', symbol: '♉' },
+                { key: 'gemini', name: 'Gemini', symbol: '♊' },
+                { key: 'cancer', name: 'Cancer', symbol: '♋' },
+                { key: 'leo', name: 'Leo', symbol: '♌' },
+                { key: 'virgo', name: 'Virgo', symbol: '♍' },
+                { key: 'libra', name: 'Libra', symbol: '♎' },
+                { key: 'scorpio', name: 'Scorpio', symbol: '♏' },
+                { key: 'sagittarius', name: 'Sagittarius', symbol: '♐' },
+                { key: 'capricorn', name: 'Capricorn', symbol: '♑' },
+                { key: 'aquarius', name: 'Aquarius', symbol: '♒' },
+                { key: 'pisces', name: 'Pisces', symbol: '♓' }
+            ];
+
+            var signsHTML = '';
+            allSigns.forEach(function (s) {
+                var activeClass = s.key === signKey ? ' active' : '';
+                signsHTML += '<a href="horoscope-detail.html?sign=' + s.key + '" class="hd_sign_link' + activeClass + '">' +
+                    '<span class="sign_symbol">' + s.symbol + '</span>' +
+                    '<span class="sign_label">' + s.name + '</span>' +
+                    '</a>';
+            });
+            document.getElementById('otherSignsGrid').innerHTML = signsHTML;
+        });
+    </script>
+</body>
+
+</html>
