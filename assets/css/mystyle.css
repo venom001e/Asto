@@ -798,3 +798,77 @@ nav ul li a.active {
     grid-template-columns: 1fr;
   }
 }
+
+/* Additional Mobile Improvements */
+@media (max-width: 768px) {
+  /* Improve button spacing */
+  .btn, .as_btn {
+    margin: 5px 2px;
+    padding: 10px 15px;
+    min-height: 44px;
+  }
+  
+  /* Better form controls */
+  .form-control, input, textarea, select {
+    font-size: 16px !important; /* Prevent zoom on iOS */
+    padding: 12px 15px;
+    border-radius: 4px;
+  }
+  
+  /* Improve navigation */
+  .menu .nav-links {
+    font-size: 16px;
+  }
+  
+  /* Better spacing for content */
+  .container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  
+  /* Improve readability */
+  p, li, span {
+    line-height: 1.6;
+  }
+  
+  /* Touch-friendly links */
+  a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Extra small devices */
+  .container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  
+  h1, .h1 {
+    font-size: 22px;
+  }
+  
+  h2, .h2 {
+    font-size: 18px;
+  }
+  
+  .btn, .as_btn {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+}
+
+/* Landscape orientation adjustments */
+@media (max-height: 500px) and (orientation: landscape) {
+  .modal-dialog {
+    margin: 5px auto;
+    max-height: 90vh;
+  }
+  
+  .modal-body {
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+}
