@@ -11,5 +11,41 @@ var firebaseConfig = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-firebase.analytics();
+const app = firebase.initializeApp(firebaseConfig);
+const analytics = firebase.analytics();
+
+// Initialize Cloud Firestore and get a reference to the service
+const db = firebase.firestore();
+
+console.log("Firebase Client Initialized Successfully!");
+
+// Example function to fetch blogs
+async function fetchBlogs() {
+  try {
+    const querySnapshot = await db.collection("blogs").get();
+    let data = [];
+    querySnapshot.forEach((doc) => {
+      data.push({ id: doc.id, ...doc.data() });
+    });
+    return data;
+  } catch (error) {
+    console.error("Error fetching blogs:", error);
+    return null;
+  }
+}
+
+// Example function: Add Contact Form Submission
+async function submitContactForm(name, email, message) {
+  try {
+    await db.collection("contact_submissions").add({
+      name: name,
+      email: email,
+      message: message,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    return true;
+  } catch (error) {
+    console.error("Error submitting form:", error);
+    return false;
+  }
+}
