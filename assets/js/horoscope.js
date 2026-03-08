@@ -659,7 +659,7 @@ const HoroscopeEngine = (function () {
     // ─── Fetch Real-Time Horoscope using Gemini API ────────────────────────────────
     async function fetchHoroscope(signKey, dayOffset = 0) {
         // REPLACE 'YOUR_GEMINI_API_KEY' WITH YOUR ACTUAL API KEY
-        const API_KEY = 'YOUR_GEMINI_API_KEY';
+        const API_KEY = 'AIzaSyA4DPhr_b2294eLwSK8ZaCwhvZKHsTclQQ';
 
         if (!API_KEY || API_KEY === 'YOUR_GEMINI_API_KEY') {
             console.warn("Please add your Gemini API Key in assets/js/horoscope.js");
