@@ -26,57 +26,113 @@ a, button, .btn {
     touch-action: manipulation;
 }
 
-/* Improved Navigation for Mobile */
+/* Enhanced Mobile Navigation */
 @media (max-width: 991px) {
     .menu .wrapper {
-        padding: 0 15px;
+        padding: 0 20px;
+        height: 60px;
+    }
+    
+    .menu .logo {
+        display: flex;
+        align-items: center;
+        height: 100%;
     }
     
     .menu .logo img {
-        max-height: 50px;
-        width: auto;
+        max-height: 40px;
     }
     
-    .nav-links {
+    .wrapper .nav-links {
         position: fixed;
-        top: 0;
-        left: -100%;
-        width: 100%;
         height: 100vh;
-        background: rgba(0, 0, 0, 0.95);
-        backdrop-filter: blur(10px);
+        width: 100%;
+        max-width: 350px;
+        left: -100%;
+        top: 0;
+        display: block;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        line-height: 50px;
+        padding: 80px 0 20px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
         transition: all 0.3s ease;
-        z-index: 9999;
-        padding-top: 80px;
+        overflow-y: auto;
     }
     
-    .nav-links.active {
-        left: 0;
+    #menu-btn:checked ~ .nav-links {
+        left: 0%;
     }
     
     .nav-links li {
-        display: block;
         margin: 0;
+        display: block;
         text-align: center;
-        padding: 15px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 0 20px;
     }
     
     .nav-links li a {
-        font-size: 18px;
-        color: white;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 500;
         padding: 15px 20px;
+        border-radius: 8px;
+        margin: 5px 0;
         display: block;
-        width: 100%;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
     }
     
-    .menu-btn, .close-btn {
-        display: block;
+    .nav-links li a:hover,
+    .nav-links li a.active {
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .nav-links li a.active::after {
+        display: none;
+    }
+    
+    .nav-links .close-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        color: #fff;
+        font-size: 20px;
         cursor: pointer;
-        font-size: 24px;
-        color: var(--secondary-color);
-        z-index: 10000;
-        position: relative;
+        background: rgba(255, 255, 255, 0.2);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-links .close-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: rotate(90deg);
+    }
+    
+    .menu-btn {
+        color: #333;
+        font-size: 20px;
+        cursor: pointer;
+        display: block;
+        transition: all 0.3s ease;
+    }
+    
+    .menu-btn:hover {
+        color: #ff6f00;
+        transform: scale(1.1);
+    }
+    
+    #menu-btn,
+    #close-btn {
+        display: none;
     }
 }
 
@@ -523,5 +579,147 @@ a, button, .btn {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
+    }
+}
+/* Additional Header UX Improvements */
+@media (max-width: 768px) {
+    .menu .wrapper {
+        height: 55px;
+        padding: 0 15px;
+    }
+    
+    .menu .logo {
+        display: flex;
+        align-items: center;
+        height: 100%;
+    }
+    
+    .menu .logo img {
+        max-height: 35px;
+    }
+    
+    .menu-btn {
+        font-size: 18px;
+    }
+}
+
+/* Tablet optimizations */
+@media (min-width: 768px) and (max-width: 991px) {
+    .nav-links li a {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+    
+    .menu .wrapper {
+        padding: 0 25px;
+    }
+}
+
+/* Large screen optimizations */
+@media (min-width: 1200px) {
+    .nav-links li a {
+        font-size: 16px;
+        padding: 12px 20px;
+    }
+    
+    nav .wrapper {
+        max-width: 1400px;
+    }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .menu .logo img {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .menu {
+        background: rgba(30, 30, 30, 0.95);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .nav-links li a {
+        color: #e0e0e0;
+    }
+    
+    .nav-links li a:hover,
+    .nav-links li a.active {
+        color: #ff6f00;
+        background: rgba(255, 111, 0, 0.15);
+    }
+    
+    .menu-btn {
+        color: #e0e0e0;
+    }
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    html {
+        scroll-behavior: auto;
+    }
+}
+/* Simple Wave Design Mobile Optimizations */
+@media (max-width: 991px) {
+    .hd_banner {
+        padding: 60px 0 60px !important;
+    }
+    
+    .hd_banner::after {
+        height: 50px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hd_banner {
+        padding: 50px 0 50px !important;
+    }
+    
+    .hd_banner::after {
+        height: 40px;
+    }
+}
+
+@media (max-width: 576px) {
+    .hd_banner {
+        padding: 40px 0 40px !important;
+    }
+    
+    .hd_banner::after {
+        height: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hd_banner {
+        padding: 30px 0 30px !important;
+    }
+    
+    .hd_banner::after {
+        height: 25px;
+    }
+}
+
+/* Performance optimizations for simple wave design */
+@media (prefers-reduced-motion: reduce) {
+    .hd_banner::after {
+        animation: none !important;
+    }
+}
+
+/* Dark mode support for wave design */
+@media (prefers-color-scheme: dark) {
+    .hd_banner {
+        background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%) !important;
     }
 }

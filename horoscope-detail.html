@@ -27,37 +27,116 @@
            Colors: --secondary-color: #f4a636 (orange accent)
            ═══════════════════════════════════════════════════════════ */
 
-        /* ─── Hero Banner (same style as main site) ─────────────── */
+        /* ─── Hero Banner (Simple Clean Wave Design) ─────────────── */
         .hd_banner {
-            background-image: url('assets/images/bg1.jpg');
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
-            padding: 140px 0 120px;
+            padding: 80px 0 80px;
             position: relative;
             color: #ffffff;
             overflow: hidden;
             text-align: center;
+            min-height: 50vh;
         }
 
         .hd_banner::after {
             position: absolute;
             content: '';
-            background: url('assets/images/shape.svg') no-repeat;
-            width: 100%;
-            height: 273px;
-            left: 0;
-            right: 0;
             bottom: 0;
-            transform: scale(-1);
-            z-index: 1;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z' fill='%23ffffff'%3E%3C/path%3E%3C/svg%3E") no-repeat;
             background-size: cover;
+            z-index: 1;
         }
 
         .hd_banner_content {
             position: relative;
             z-index: 2;
         }
+
+        /* Floating elements for enhanced wave effect */
+        .hd_banner::before {
+            animation: floatUp 8s ease-in-out infinite;
+        }
+
+        @keyframes floatUp {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.3;
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(2deg);
+                opacity: 0.5;
+            }
+        }
+
+        /* Additional wave layers */
+        .wave-layer-1,
+        .wave-layer-2,
+        .wave-layer-3 {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            pointer-events: none;
+        }
+
+        .wave-layer-1 {
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z' fill='%23ffffff' fill-opacity='0.1'%3E%3C/path%3E%3C/svg%3E") no-repeat;
+            background-size: cover;
+            z-index: 3;
+            animation: wave1 10s ease-in-out infinite;
+        }
+
+        .wave-layer-2 {
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,0V7.23C0,65.52,268.63,112.77,600,112.77S1200,65.52,1200,7.23V0Z' fill='%23ffffff' fill-opacity='0.05'%3E%3C/path%3E%3C/svg%3E") no-repeat;
+            background-size: cover;
+            z-index: 2;
+            animation: wave2 12s ease-in-out infinite reverse;
+        }
+
+        .wave-layer-3 {
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z' fill='%23ffffff' fill-opacity='0.03'%3E%3C/path%3E%3C/svg%3E") no-repeat;
+            background-size: cover;
+            z-index: 1;
+            animation: wave3 15s ease-in-out infinite;
+        }
+
+        @keyframes wave1 {
+
+            0%,
+            100% {
+                transform: translateX(0px) scaleY(1);
+            }
+
+            50% {
+                transform: translateX(-25px) scaleY(1.1);
+            }
+        }
+
+        @keyframes wave2 {
+
+            0%,
+            100% {
+                transform: translateX(0px) scaleY(1);
+            }
+
+            50% {
+                transform: translateX(15px) scaleY(0.9);
+            }
+        }
+
+
 
         .hd_sign_icon {
             width: 120px;
@@ -721,13 +800,13 @@
                     <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="about-us.html">About Us</a></li>
-                    <li><a href="services.html">Service</a></li>
-                    <li><a href="products.html">Products</a></li>
+
+
                     <li><a href="blogs.html">Blogs</a></li>
                     <li><a href="faqs.html">Faq</a></li>
                     <li><a href="contact-us.html">Contact us</a></li>
                     <li>
-                        <a href="tel:+918447525204" class="as_btn ms-md-4">🤙 +91 8447 525 204</a>
+                        <a href="contact-us.html" class="as_btn ms-md-4">Contact us</a>
                     </li>
                 </ul>
                 <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars" style="color:black;"></i></label>
@@ -742,7 +821,6 @@
                         <img src="assets/images/svg/horoscope/h1.svg" alt="" id="heroIconImg">
                     </div>
                     <h1 class="hd_sign_name" id="heroSignName">Loading...</h1>
-                    <p class="hd_sign_date" id="heroDateRange"></p>
                     <div class="hd_traits" id="heroTraits"></div>
                     <div class="hd_meta_row" id="heroMeta"></div>
                 </div>
@@ -902,8 +980,8 @@
                                         <ul>
                                             <li><a href="index.html">Home</a></li>
                                             <li><a href="about-us.html">About Us</a></li>
-                                            <li><a href="services.html">Our Services</a></li>
-                                            <li><a href="products.html">Our Products</a></li>
+
+
                                             <li><a href="blogs.html">Blogs</a></li>
                                             <li><a href="contact-us.html">Contact Us</a></li>
                                         </ul>
@@ -965,24 +1043,44 @@
             var signKey = urlParams.get('sign') || 'aries';
 
             // Generate horoscope function
-            function loadHoroscope(dayOffset) {
+            async function loadHoroscope(dayOffset) {
                 dayOffset = parseInt(dayOffset) || 0;
 
                 // Update active tab
                 $('.hd_day_tab').removeClass('active');
                 $('.hd_day_tab[data-offset="' + dayOffset + '"]').addClass('active');
 
-                // Generate horoscope
-                var prediction = HoroscopeEngine.getHoroscope(signKey, dayOffset);
-                if (!prediction) {
+                // Generate fallback horoscope (static data)
+                var fallback = HoroscopeEngine.getHoroscope(signKey, dayOffset);
+                if (!fallback) {
                     window.location.href = 'index.html';
                     return;
                 }
 
+                // Initial setup from static data
+                updateUI(fallback, dayOffset);
+
+                // Fetch real data for Today
+                if (dayOffset === 0) {
+                    const realData = await HoroscopeEngine.fetchHoroscope(signKey);
+                    if (realData && realData.horoscope) {
+                        // Update Overall Overview card with real content
+                        let text = realData.horoscope;
+                        let prefix = 'Hey ' + fallback.sign + ', ';
+                        if (!text.toLowerCase().includes('hey ' + fallback.sign.toLowerCase())) {
+                            text = prefix + text;
+                        }
+                        document.querySelector('#overviewText').textContent = text;
+                        // Keep other cards static but maybe update something to show it's real
+                        document.querySelector('#overviewLabel').innerHTML = fallback.sign + ' Daily Overview <i class="fas fa-check-circle" style="color:#2ecc71;"></i>';
+                    }
+                }
+            }
+
+            function updateUI(prediction, dayOffset) {
                 // Page title & Hero (only once or on update)
-                document.title = prediction.sign + ' Daily Horoscope - Astro Cloud';
-                document.getElementById('heroSignName').textContent = prediction.sign;
-                document.getElementById('heroDateRange').textContent = prediction.date;
+                document.title = prediction.symbol + ' ' + prediction.sign + ' Daily Horoscope - Astro Cloud';
+                document.getElementById('heroSignName').textContent = prediction.symbol + ' ' + prediction.sign;
                 document.getElementById('breadSignName').textContent = prediction.sign + ' Horoscope';
 
                 // Today date
@@ -1006,15 +1104,22 @@
                     return html;
                 }
 
+                // Prepend helper
+                function formatText(text, sign) {
+                    let prefix = 'Hey ' + sign + ', ';
+                    if (text.toLowerCase().startsWith('hey ' + sign.toLowerCase())) return text;
+                    return prefix + text;
+                }
+
                 // Build prediction cards
                 var cardsHTML = '';
 
                 cardsHTML += '<div class="hd_prediction_card">' +
                     '<div class="hd_card_header">' +
-                    '<div class="hd_card_title"><span class="icon">🌟</span><h4>Today\'s Overview</h4></div>' +
+                    '<div class="hd_card_title"><span class="icon" style="font-size: 28px;">' + prediction.symbol + '</span><h4 id="overviewLabel">' + prediction.sign + ' Overview</h4></div>' +
                     '<div class="hd_card_rating">Overall <span class="stars">' + getStars(prediction.overallRating) + '</span></div>' +
                     '</div>' +
-                    '<p class="hd_prediction_text">' + prediction.general + '</p>' +
+                    '<p class="hd_prediction_text" id="overviewText">' + formatText(prediction.general, prediction.sign) + '</p>' +
                     '</div>';
 
                 cardsHTML += '<div class="hd_prediction_card hd_card_love">' +
@@ -1022,7 +1127,7 @@
                     '<div class="hd_card_title"><span class="icon">❤️</span><h4>Love & Relationships</h4></div>' +
                     '<div class="hd_card_rating">Love <span class="stars">' + getStars(prediction.loveRating) + '</span></div>' +
                     '</div>' +
-                    '<p class="hd_prediction_text">' + prediction.love + '</p>' +
+                    '<p class="hd_prediction_text">' + formatText(prediction.love, prediction.sign) + '</p>' +
                     '</div>';
 
                 cardsHTML += '<div class="hd_prediction_card hd_card_career">' +
@@ -1030,7 +1135,7 @@
                     '<div class="hd_card_title"><span class="icon">💼</span><h4>Career & Finance</h4></div>' +
                     '<div class="hd_card_rating">Career <span class="stars">' + getStars(prediction.careerRating) + '</span></div>' +
                     '</div>' +
-                    '<p class="hd_prediction_text">' + prediction.career + '</p>' +
+                    '<p class="hd_prediction_text">' + formatText(prediction.career, prediction.sign) + '</p>' +
                     '</div>';
 
                 cardsHTML += '<div class="hd_prediction_card hd_card_health">' +
@@ -1038,7 +1143,7 @@
                     '<div class="hd_card_title"><span class="icon">🏥</span><h4>Health & Wellness</h4></div>' +
                     '<div class="hd_card_rating">Health <span class="stars">' + getStars(prediction.healthRating) + '</span></div>' +
                     '</div>' +
-                    '<p class="hd_prediction_text">' + prediction.health + '</p>' +
+                    '<p class="hd_prediction_text">' + formatText(prediction.health, prediction.sign) + '</p>' +
                     '</div>';
 
                 document.getElementById('predictionsContainer').innerHTML = cardsHTML;
@@ -1051,8 +1156,8 @@
                     '<div class="hd_lucky_card"><span class="emoji">💎</span><span class="label">Lucky Gem</span><span class="value">' + prediction.luckyGem + '</span></div>' +
                     '<div class="hd_lucky_card"><span class="emoji">💕</span><span class="label">Compatibility</span><span class="value">' + prediction.compatibility + '</span></div>';
 
-                // Hero icon & details (only if traits not set)
-                if ($('#heroTraits').is(':empty')) {
+                // Hero icon & details
+                if ($('#heroTraits').is(':empty') || true) { // Always update hero traits for fresh feel
                     var iconFile = signIcons[signKey] || 'h1.svg';
                     document.getElementById('heroIconImg').src = 'assets/images/svg/horoscope/' + iconFile;
 
@@ -1069,22 +1174,24 @@
                 }
 
                 // Sidebar population
-                var sidebarStatsHTML =
-                    '<div style="display: flex; flex-direction: column; gap: 12px;">' +
-                    '<div style="display: flex; justify-content: space-between; align-items: center; background: #fff8f0; padding: 12px 15px; border-radius: 12px; border: 1px solid #fee8d0;">' +
-                    '<span style="font-size: 13px; color: #666; font-weight: 600;">Overall Rating</span>' +
-                    '<span style="color: #ffb800; font-size: 14px;">' + getStars(prediction.overallRating) + '</span>' +
-                    '</div>' +
-                    '<div style="display: flex; justify-content: space-between; align-items: center; background: #f0f7ff; padding: 12px 15px; border-radius: 12px; border: 1px solid #d0e7fe;">' +
-                    '<span style="font-size: 13px; color: #666; font-weight: 600;">Lucky Number</span>' +
-                    '<span style="color: #2e86de; font-weight: 700;">' + prediction.luckyNumber + '</span>' +
-                    '</div>' +
-                    '<div style="display: flex; justify-content: space-between; align-items: center; background: #fff0f1; padding: 12px 15px; border-radius: 12px; border: 1px solid #fed0d3;">' +
-                    '<span style="font-size: 13px; color: #666; font-weight: 600;">Compatibility</span>' +
-                    '<span style="color: #ff4757; font-weight: 700;">' + prediction.compatibility + '</span>' +
-                    '</div>' +
-                    '</div>';
-                document.getElementById('sidebarLuckySummary').innerHTML = sidebarStatsHTML;
+                if (document.getElementById('sidebarLuckySummary')) {
+                    var sidebarStatsHTML =
+                        '<div style="display: flex; flex-direction: column; gap: 12px;">' +
+                        '<div style="display: flex; justify-content: space-between; align-items: center; background: #fff8f0; padding: 12px 15px; border-radius: 12px; border: 1px solid #fee8d0;">' +
+                        '<span style="font-size: 13px; color: #666; font-weight: 600;">Overall Rating</span>' +
+                        '<span style="color: #ffb800; font-size: 14px;">' + getStars(prediction.overallRating) + '</span>' +
+                        '</div>' +
+                        '<div style="display: flex; justify-content: space-between; align-items: center; background: #f0f7ff; padding: 12px 15px; border-radius: 12px; border: 1px solid #d0e7fe;">' +
+                        '<span style="font-size: 13px; color: #666; font-weight: 600;">Lucky Number</span>' +
+                        '<span style="color: #2e86de; font-weight: 700;">' + prediction.luckyNumber + '</span>' +
+                        '</div>' +
+                        '<div style="display: flex; justify-content: space-between; align-items: center; background: #fff0f1; padding: 12px 15px; border-radius: 12px; border: 1px solid #fed0d3;">' +
+                        '<span style="font-size: 13px; color: #666; font-weight: 600;">Compatibility</span>' +
+                        '<span style="color: #ff4757; font-weight: 700;">' + prediction.compatibility + '</span>' +
+                        '</div>' +
+                        '</div>';
+                    document.getElementById('sidebarLuckySummary').innerHTML = sidebarStatsHTML;
+                }
             }
 
             // Initial load (Today)

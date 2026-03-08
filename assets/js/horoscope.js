@@ -656,10 +656,25 @@ const HoroscopeEngine = (function () {
         }
     }
 
+    // ─── Fetch Real-Time Horoscope ────────────────────────────────
+    async function fetchHoroscope(signKey) {
+        const baseUrl = 'https://freehoroscopeapi.com/api/v1/get-horoscope/daily';
+        try {
+            const response = await fetch(`${baseUrl}?sign=${signKey}`);
+            if (!response.ok) throw new Error('API request failed');
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Horoscope API Error:', error);
+            return null;
+        }
+    }
+
     // ─── Public API ────────────────────────────────────────────────
     return {
         init: init,
-        getHoroscope: generateDailyHoroscope
+        getHoroscope: generateDailyHoroscope,
+        fetchHoroscope: fetchHoroscope
     };
 
 })();
