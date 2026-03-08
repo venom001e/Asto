@@ -656,16 +656,56 @@ const HoroscopeEngine = (function () {
         }
     }
 
-    // ─── Fetch Real-Time Horoscope ────────────────────────────────
-    async function fetchHoroscope(signKey) {
-        const baseUrl = 'https://freehoroscopeapi.com/api/v1/get-horoscope/daily';
+    // ─── Fetch Real-Time Horoscope using Gemini API ────────────────────────────────
+    async function fetchHoroscope(signKey, dayOffset = 0) {
+        // REPLACE 'YOUR_GEMINI_API_KEY' WITH YOUR ACTUAL API KEY
+        const API_KEY = 'YOUR_GEMINI_API_KEY';
+
+        if (!API_KEY || API_KEY === 'YOUR_GEMINI_API_KEY') {
+            console.warn("Please add your Gemini API Key in assets/js/horoscope.js");
+            return null;
+        }
+
+        const date = new Date();
+        date.setDate(date.getDate() + dayOffset);
+        const dateString = date.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+        const prompt = `Generate a daily horoscope for the zodiac sign ${signKey.toUpperCase()} for the date ${dateString}.
+Please provide the response strictly as a JSON object with these exact keys:
+"overview", "love", "career", "health".
+Each value should be a 2-3 sentence prediction. No markdown, just raw JSON.`;
+
         try {
-            const response = await fetch(`${baseUrl}?sign=${signKey}`);
-            if (!response.ok) throw new Error('API request failed');
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{ text: prompt }]
+                    }],
+                    generationConfig: {
+                        responseMimeType: "application/json"
+                    }
+                })
+            });
+
+            if (!response.ok) throw new Error('Gemini API request failed');
             const data = await response.json();
-            return data;
+
+            if (data.candidates && data.candidates[0].content) {
+                const textResponse = data.candidates[0].content.parts[0].text;
+                const result = JSON.parse(textResponse);
+
+                return {
+                    horoscope: result.overview,
+                    love: result.love,
+                    career: result.career,
+                    health: result.health
+                };
+            }
+            return null;
         } catch (error) {
-            console.error('Horoscope API Error:', error);
+            console.error('Gemini API Error:', error);
             return null;
         }
     }
