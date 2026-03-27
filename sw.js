@@ -1,4 +1,4 @@
-// Service Worker for Astro Cloud PWA
+// Service Worker for JyotishVedaSutra PWA
 const CACHE_NAME = 'astro-cloud-v1';
 const urlsToCache = [
   '/',

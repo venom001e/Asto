@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Blog Detail - Astrology Services</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link href="assets/css/font.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/mystyle.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/mobile-responsive.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
+    <style>
+        .blog-full-img {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        .blog-content-area {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #444;
+        }
+        .blog-meta-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-right: 20px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="as_main_wrapper">
+        <!-- Navigation -->
+        <nav class="menu">
+            <div class="wrapper">
+                <div class="logo"><a href="index.html">
+                    <img src="uploads/images/logo/1669716928.png" alt="Logo">
+                </a></div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about-us.html">About Us</a></li>
+                    <li><a href="blogs.html" class="active">Blogs</a></li>
+                    <li><a href="contact-us.html">Contact Us</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <section class="as_breadcrum_wrapper">
+            <div class="container text-center">
+                <h1 id="blog-title-header">Reading Blog...</h1>
+            </div>
+        </section>
+
+        <section class="as_blog_wrapper as_padderBottom90 as_padderTop80">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10" id="blog-content-container">
+                        <div class="text-center py-5">
+                            <i class="fas fa-spinner fa-spin fa-3x"></i>
+                            <p class="mt-3">Loading full story...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="as_footer_wrapper as_padderTop80">
+            <div class="as_copyright_wrapper text-center">
+                <p>Copyright &copy; 2026 | Astro Services</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="assets/js/firebase-config.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const blogId = urlParams.get('id');
+            const container = document.getElementById('blog-content-container');
+            const headerTitle = document.getElementById('blog-title-header');
+
+            if (!blogId) {
+                container.innerHTML = '<h3>Blog not found.</h3>';
+                return;
+            }
+
+            try {
+                const doc = await firebase.firestore().collection("blogs").doc(blogId).get();
+                if (doc.exists) {
+                    const blog = doc.data();
+                    const date = blog.createdAt ? new Date(blog.createdAt.seconds * 1000).toLocaleDateString() : 'Recent';
+                    
+                    headerTitle.innerText = blog.title;
+                    container.innerHTML = `
+                        <div class="as_blog_detail">
+                            <div class="mb-4">
+                                <span class="blog-meta-item"><i class="far fa-calendar-alt"></i> ${date}</span>
+                                <span class="blog-meta-item"><i class="far fa-user"></i> By Admin</span>
+                            </div>
+                            <img src="${blog.image}" class="blog-full-img" alt="${blog.title}">
+                            <div class="blog-content-area">
+                                ${blog.content}
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    container.innerHTML = '<h3>Sorry, this blog does not exist.</h3>';
+                }
+            } catch (err) {
+                console.error(err);
+                container.innerHTML = '<p class="text-danger">Failed to load content.</p>';
+            }
+        });
+    </script>
+</body>
+</html>

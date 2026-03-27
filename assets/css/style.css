@@ -897,7 +897,7 @@ a,a:hover,a:focus,a:visited{
 /* about css end */
 /* horoscope css start */
 .as_horoscope_wrapper{
-    background-image: url('http://via.placeholder.com/1920X1080/f6fbff/f2f2f2');
+    background-image: url('../images/bg1.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position:center;
@@ -2477,7 +2477,7 @@ li.as_info_box p {
 }
 
 .as_login_slider{
-    background-image: url('http://via.placeholder.com/670X620/f7fbfe');
+    background-image: url('../images/bg1.jpg');
     background-position: center;
     background-size: cover;
     background-repeat:no-repeat ;
@@ -2577,7 +2577,7 @@ span {
     height: 100vh;
     display: flex;
     align-items: center;
-    background-image: url('https://via.placeholder.com/1920X1080/39274d');
+    background-image: url('../images/bg1.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

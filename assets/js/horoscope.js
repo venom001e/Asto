@@ -1,5 +1,5 @@
 /**
- * ✨ Dynamic Horoscope Engine — Astro Cloud
+ * ✨ Dynamic Horoscope Engine — JyotishVedaSutra
  * Generates daily predictions based on current date
  * Each day produces unique horoscope readings for all 12 signs
  */

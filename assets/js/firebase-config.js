@@ -1,51 +1,101 @@
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// ============================================================
+// FIREBASE CONFIGURATION
+// ============================================================
+
 var firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID",
-  measurementId: "YOUR_MEASUREMENT_ID"
+  apiKey: "AIzaSyCLj86zY98VNvdog9p7GpV6jdpcd5_2dK4",
+  authDomain: "astro-a25d7.firebaseapp.com",
+  databaseURL: "https://astro-a25d7-default-rtdb.firebaseio.com",
+  projectId: "astro-a25d7",
+  storageBucket: "astro-a25d7.firebasestorage.app",
+  messagingSenderId: "600139992772",
+  appId: "1:600139992772:web:c1bb85e9db028751bf4391",
+  measurementId: "G-XL7SS3VCMC"
 };
 
-// Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
-const analytics = firebase.analytics();
+// ============================================================
+// Firebase Initialize karein (Firebase v8 Compat SDK)
+// ============================================================
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
 
-// Initialize Cloud Firestore and get a reference to the service
+// Firestore Database aur Analytics
 const db = firebase.firestore();
+// const analytics = firebase.analytics(); // Disabled temporarily to prevent local file:// errors
 
-console.log("Firebase Client Initialized Successfully!");
+console.log("✅ Firebase Connected Successfully!");
 
-// Example function to fetch blogs
+// ============================================================
+// HELPER FUNCTIONS
+// ============================================================
+
+// Blogs fetch karne ka function
 async function fetchBlogs() {
   try {
-    const querySnapshot = await db.collection("blogs").get();
+    const querySnapshot = await db.collection("blogs").orderBy("createdAt", "desc").get();
     let data = [];
     querySnapshot.forEach((doc) => {
       data.push({ id: doc.id, ...doc.data() });
     });
     return data;
   } catch (error) {
-    console.error("Error fetching blogs:", error);
-    return null;
+    console.error("❌ Error fetching blogs:", error);
+    return [];
   }
 }
 
-// Example function: Add Contact Form Submission
+// Contact form submit karne ka function
 async function submitContactForm(name, email, message) {
   try {
-    await db.collection("contact_submissions").add({
+    // Timeout logic: agar 5 second mein Firestore na chal paaye toh error de de.
+    const addPromise = db.collection("contact_submissions").add({
       name: name,
       email: email,
       message: message,
       timestamp: firebase.firestore.FieldValue.serverTimestamp()
     });
+
+    const timeoutPromise = new Promise((_, reject) => {
+      setTimeout(() => reject(new Error("Network ya Firebase connection timeout ho gaya. Data send nahi ho raha.")), 5000);
+    });
+
+    await Promise.race([addPromise, timeoutPromise]);
+    console.log("✅ Contact form submitted!");
     return true;
   } catch (error) {
-    console.error("Error submitting form:", error);
+    console.error("❌ Error submitting form:", error);
+    alert("Exact Error: " + error.message); // <-- Added for debugging
     return false;
+  }
+}
+
+// Horoscope data fetch karne ka function
+async function fetchHoroscope(sign) {
+  try {
+    const doc = await db.collection("horoscopes").doc(sign.toLowerCase()).get();
+    if (doc.exists) {
+      return doc.data();
+    } else {
+      console.warn("No horoscope found for:", sign);
+      return null;
+    }
+  } catch (error) {
+    console.error("❌ Error fetching horoscope:", error);
+    return null;
+  }
+}
+
+// 📚 Global helper to fetch blogs for the website
+window.fetchBlogs = async function() {
+  try {
+    const snapshot = await db.collection("blogs").orderBy("createdAt", "desc").get();
+    return snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+  } catch (error) {
+    console.error("❌ Error fetching blogs:", error);
+    return [];
   }
 }
