@@ -17,6 +17,10 @@
     {
       "source": "/faq",
       "destination": "/faqs.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin.html"
     }
   ]
 }
