@@ -1,0 +1,22 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/blogs",
+      "destination": "/blogs.html"
+    },
+    {
+      "source": "/about",
+      "destination": "/about-us.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact-us.html"
+    },
+    {
+      "source": "/faq",
+      "destination": "/faqs.html"
+    }
+  ]
+}
